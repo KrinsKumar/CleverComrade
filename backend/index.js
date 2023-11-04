@@ -1,5 +1,6 @@
 // importing the packages
 const express = require("express");
+const cors = require('cors');
 require("dotenv").config();
 
 //import the helper functions
@@ -14,13 +15,9 @@ const {
 } = require("./model_interaction/helpers");
 
 
-
-
-
-
-
-
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -41,9 +38,13 @@ app.post("/upload", (req, res) => {
 
 app.post("/query", (req, res) => {
     const token = getJwtToken();
-    //const response = getQueryResponse(req.body.query, req.body.userId, token);
+    const response = getQueryResponse(req.body.query, req.body.userId, token);
 
-    res.status(200).send("This is your answer");
+    res.status(200).json(
+        createSuccessResponse({
+            message: "Welcome to the backend!",
+        })
+    );
 });
 
 app.use((req, res) => {
