@@ -1,6 +1,8 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+// import LoginButton from '../auth0/login'
+import { useAuth0 } from "@auth0/auth0-react";
 
 // const user = {
 //   name: 'Tom Cook',
@@ -23,6 +25,8 @@ function classNames(...classes) {
 }
 
 export default function () {
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <>
       {/*
@@ -59,6 +63,7 @@ export default function () {
                                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                               'rounded-md px-3 py-2 text-sm font-medium'
                             )}
+                            onClick={() => loginWithRedirect()}
                             aria-current={item.current ? 'page' : undefined}
                           >
                             {item.name}
