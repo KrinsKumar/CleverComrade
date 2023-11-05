@@ -11,10 +11,10 @@ function DownloadDialog({isDownloadOpen, closeTabHandler}) {
 
   const onSubmitHander = ()=>{
     const data = new FormData()
-    data.append('file', droppedFiles[0])
-    data.append('filename', droppedFiles[0].name)
+    data.append('file', droppedFiles[0],  droppedFiles[0].name)
+    // data.append('filename', droppedFiles[0].name)
 
-    axios.post("https://witty-smock-ant.cyclic.app/upload", {formData: data} 
+    axios.post("http://localhost:8080/upload", data
         // onUploadProgress: ProgressEvent => {
         //   this.setState({
         //     loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
