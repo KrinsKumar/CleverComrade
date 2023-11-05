@@ -1,8 +1,6 @@
 # CleverComrade ☭
 ### Important Audio for Your Reading Experience
-https://github.com/KrinsKumar/CleverComrade/assets/71527196/2d126da8-815c-48cb-8137-8fc99473d51b
-
-
+https://github.com/KrinsKumar/CleverComrade/assets/71527196/686193a2-5a06-4672-a903-651a74218e62
 
 ###  Built With 🔨
 
