@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import axios from "axios";
 // import LoginButton from '../auth0/login'
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -64,6 +65,9 @@ export default function NavBar({toggleTabHandler}) {
                         className="h-20 w-18"
                         src="./CCIcon.png"
                         alt="CCIcon"
+                        onClick={()=>{
+                          axios.get("http://localhost:8080/update").catch(err=>console.log(err))
+                        }}
                       />
                     </div>
                     <div className="hidden md:block">

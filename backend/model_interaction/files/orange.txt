@@ -1,0 +1,3 @@
+Krins owns 90 parrots and all of them are green. Some has green eyes.
+
+XYZ Theorem: if x times n equals to y, then x times (n+1) equals to y + x

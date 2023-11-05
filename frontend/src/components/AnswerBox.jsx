@@ -19,9 +19,9 @@ const QuestionBox = ({ instruction, type, answer }) => {
               if (a.score <= 0.65) return <div key={i}></div>;
               return (
                 <span key={i}>
-                  {a?.text}
-                  <a target="_blank"className="bg-white inline-block w-6 rounded mx-1 text-center cursor-pointer hover:text-blue-500" href={map.get(a.doc)}>
-                    {a?.doc}
+                  {a.text}
+                  <a target="_blank"className="bg-white inline-block w-6 rounded mx-1 text-center cursor-pointer hover:text-blue-500" href={map.get(a.documentIndex)}>
+                    {a.documentIndex}
                   </a>
                 </span>
               );

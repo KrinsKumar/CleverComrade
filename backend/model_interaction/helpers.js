@@ -2,6 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const FormData = require('form-data');
 require("dotenv").config();
+const download = require('download'); 
 
 // get values from .env file
 const client_id = process.env.CLIENT_ID;
@@ -11,28 +12,24 @@ const endpoint = process.env.ENDPOINT;
 const id = process.env.USER_ID;
 const OAUTH_JWT = process.env.OAUTH_JWT;
 
-//TODO get the file from the front end
+token="eyJraWQiOiJNbFVBTWtyQkc4ekJrZE9yV00xOWs2MnI2RklNVTI0ZXlzb2tWSmpnNmdvPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5YTRmY2U0MS05YWZkLTRhNjAtYmU5Ny02Y2Q2NWI4ZmE1YjAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tXC91cy13ZXN0LTJfYlNLSlF5QVFIIiwiY29nbml0bzp1c2VybmFtZSI6ImtyaW5za3VtYXJAZ21haWwuY29tIiwib3JpZ2luX2p0aSI6IjE2OTNkZThmLTNlZmMtNDY3My04MmI5LTM1NWM4ODNmZThjNiIsImF1ZCI6IjcydGxmOWEwNWV1aDFyZXRmcGhsaGxhZ3BwIiwiZXZlbnRfaWQiOiI5MDE1MjVlMi0zNTcwLTQxYjMtODMzYi03NTFhOTE1ZDNlZTMiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY5OTExNTAwMiwiZXhwIjoxNjk5MjAxMDkxLCJpYXQiOjE2OTkxOTc0OTIsImp0aSI6ImU4NzYwZjM3LTRjODAtNGU5MS05ZjMxLTNhNTk3ZDY5ZTEyYiIsImVtYWlsIjoia3JpbnNrdW1hckBnbWFpbC5jb20ifQ.nFRN9HfmbB5Z9blP6W7tyZNTTHDTZS_dyKNadlqJJoySqcRd-bAIBzRy75N5ZtCET52F7CpPJNk3agwU2stW_OTqaUrqT6_zWoAmoXnu5VE2U0Bupd2RZ445BbuyOJnsOVRcKQduFK3olmD_e5vxbEVGPOE7PLORnP-CoXV_SHMbY5npyTKbqz4FO51bFawhvcQKaYfu6l8kJdFhVfT6qlTXRN5UcESgKBPFpdBxh2rnNmfAZRYgwpBV3D14HaMJLeAywVyVGJL7k_Cme0T4nDstSnw2WWa0_9E7un7mYtOJ2mH5RrIrtrUDTsBbdTFW_jCCPhJnqO9-8bNWm7bshA"
+
 let uploadFile = async function (user_id, auth_token, file_name) {
-  console.log("start")
-  const data = new FormData();
-  data.append('c', id);
-  data.append('o', user_id);
-  // console.log(__dirname + '/files/' + file_name);
-  data.append('file', fs.createReadStream(__dirname + '/files/' + file_name));
-  
-  const config = {
-    headers: {
-      'Authorization': `Bearer ${auth_token}`,
-      'Content-Type': 'multipart/form-data'
-    }
-  };
-  const result = await axios.post(`https://${endpoint}/v1/upload`, data, config);
+    const data = new FormData();
+    data.append('c', id);
+    data.append('o', user_id);
+    // console.log(__dirname + '/files/' + file_name);
+    data.append('file', fs.createReadStream(__dirname + '/files/' + file_name));
 
-
-
-  console.log({result:result.data.response});
-  console.log("start")
-  return result;
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${auth_token}`,
+            'Content-Type': 'multipart/form-data'
+        }
+    };
+    const result = await axios.post(`https://${endpoint}/v1/upload`, data, config);
+    console.log({result:result.data.response});
+    return result;
 }
 
 
@@ -65,7 +62,7 @@ let deleteDocument = async function (user_id, auth_token, document_id) {
       headers: {
         Authorization: `Bearer ${auth_token}`,
         "Content-Type": "application/json",
-        "customer-id": customer_id.toString(),
+        "customer-id": id.toString(),
       },
     };
 
@@ -74,6 +71,8 @@ let deleteDocument = async function (user_id, auth_token, document_id) {
       data,
       config
     );
+
+    console.log(result.data);
     return result;
 }
 
@@ -158,6 +157,7 @@ let getAccessToken = async function() {
   .then((response) => {
     for (let user of response.data) {
       if (user.email == "clevercomrade@outlook.com") {
+        console.log(user.identities[0].access_token)
         return user.identities[0].access_token;
       }
     }
@@ -195,6 +195,45 @@ let getUserId = async function() {
   });
 }
 
+
+let run = async function() {
+
+  await deleteDocument(1, token, "orange.txt");
+
+
+  // const access = await getAccessToken();
+  const access = "EwBoA8l6BAAUAOyDv0l6PcCVu89kmzvqZmkWABkAAeSdlo7QAm94WCwZP5BodkgO7t6pHnABGiaFcjn7NmYtfUzbEgAaSp1xjE9A9zEx9EL8XjCJvOGCP3XsYIqsiTqGOvmH3FnGiOoQ9XaxpDr5aqKW4OOwSQMt2mr6LWMPjMciPzsOlnKPWX6AUxsXvYJNR0RvuHIijFGHT7QF9+jXSlT1rNCZsBHjMGS/wsL1wHJc2AWrw+bN6gIvCiot9TPn/dEjjNe/aodgtearFk3QJ3tw7xiAfocVXR92F2uILKFD3jD6jO/uwSb+AxlcGysSPOXPaCu7tRXRsK/B/RM71WKTS0wVJ79CqhK8tau1EhbG9oif99zX5jfH4ny4YUsDZgAACB7ETpOWvMAsOAK96SYon/0/0oFWs/hE5Mc+sa8qTwg270Kj7FE6ruYVv18DcoT8fFmvpNfn/xA2cvefcEOjbfgbsX0TFrUCUHid7C8RGVP96sXEwavCV+92a4pMFnQw7Kps1BJ64RuMFnD6tLQ4aSMYSuFewzv/UpTnEjAEmfmn3SCcSEzUqMxGeek0dzWjLNSeIo6DjVf6/Lx/VQlsMfyopSKcCy8q060/LDnUGPA+qBvfvDRkFvmZJbkfmN3GuXBe+de566gsZlVxXXgeLoYCz9sA//nzt2t7D/+stXUxYAMmzbNElL9fJaTX+ApVqXoexqwHFobvKsEgKTPoDzj3t9HTYYiSJb7GRV+DtsCqdGrMAqRshOgahFrm1XrQ0S7mJHOvtu0YWMbx/i7DKoR2zw4XbUo6m9Ve8CO2lSU4JQ9s7vkuqQX+cvMBloX42y8zZ0dgyw9x/THIq7odn7h7u5uTRuMe9G/Ztr8nnIxEOLh8m7QWpZacTTRhHaAiVDPFiTl4fISnabISrJ1zVXIfFCvQ7+c1NJBuLWifHtynjKJ4/G/GK+GqAe0SaZoPsKZzahQzleXy56aKxCbzFV/iKz9lKA66Q41IbJ2hPSTdVIsHEd6cTzYJ8JEYy/7q2U4wjGofgCC8+UgaQFSzEt+mjxBUgjWhI7mS7KmujJaMflfVwkPplxU9LKByyyXKEbZ1vps+pnKR+v5N4awO8JSuUY0LKlsJNMWyoIQ/jJTruOIe7ZVYsX/wdcXIY0GUgI8ZiwI="
+  const config = {
+    headers: { 
+      'Authorization': 'Bearer ' + access
+    }
+  };
+  console.log(config)
+  axios.get('https://graph.microsoft.com/v1.0//users/ffb16b08fcf4f2eb/drive/root:/orange.txt',config)
+  .then((response) => {
+    console.log(response.data)
+
+
+    const file = response.data["@microsoft.graph.downloadUrl"] .toString();
+    const filePath = `${__dirname}/files`; 
+      
+    download(file,filePath) 
+    .then(() => { 
+        console.log('Download Completed'); 
+    })
+
+    setTimeout(function() {
+
+       uploadFile(1, token, "orange.txt");
+      }, 2000);
+
+    })
+
+
+}
+
+// run();
+
 //export all the functions
 module.exports = {
     getAccessToken,
@@ -205,6 +244,6 @@ module.exports = {
     getQueryResponse,
     createErrorResponse,
     createSuccessResponse,
-    getUserId
+    getUserId,
+    run
 };
-
