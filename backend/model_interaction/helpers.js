@@ -25,6 +25,7 @@ let uploadFile = async function (user_id, auth_token, file_name) {
         }
     };
     const result = await axios.post(`https://${endpoint}/v1/upload`, data, config);
+    console.log(result);
     return result;
 }
 
@@ -210,3 +211,4 @@ module.exports = {
     createSuccessResponse,
     getUserId
 };
+
