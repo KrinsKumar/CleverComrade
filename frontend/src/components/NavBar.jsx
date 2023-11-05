@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 // import LoginButton from '../auth0/login'
@@ -10,22 +10,36 @@ import { useAuth0 } from "@auth0/auth0-react";
 //   imageUrl:
 //     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 // }
-const navigation = [
-  { name: 'Upload', href: '#', current: false },
-  { name: 'Sign In', href: '#', current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+
+
+
+// const userNavigation = [
+//   { name: 'Your Profile', href: '#' },
+//   { name: 'Settings', href: '#' },
+//   { name: 'Sign out', href: '#' },
+//   {}
+// ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function () {
+export default function NavBar({toggleTabHandler}) {
   const { loginWithRedirect } = useAuth0();
+  const navigation = [
+    { 
+    name: 'Upload', 
+    href: '#', 
+    current: false,
+    callback:toggleTabHandler
+    },
+    { 
+    name: 'Sign In', 
+    href: '#', 
+    current: false, 
+    callback:()=>{loginWithRedirect()}
+    },
+  ]
 
   return (
     <>
@@ -63,7 +77,7 @@ export default function () {
                                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                               'rounded-md px-3 py-2 text-sm font-medium'
                             )}
-                            onClick={() => loginWithRedirect()}
+                            onClick={item.callback}
                             aria-current={item.current ? 'page' : undefined}
                           >
                             {item.name}

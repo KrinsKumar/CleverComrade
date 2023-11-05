@@ -13,7 +13,7 @@ root.render(
       domain="dev-bcjg7r08aljx51m6.us.auth0.com"
       clientId="AmDwb89AO10XNZKHFZHxVN5NvvNbyLpD"
       authorizationParams={{
-        redirect_uri: "https://clever-comrade.vercel.app/"
+        redirect_uri: "http://localhost:3000"
       }}
     >
       <App />
