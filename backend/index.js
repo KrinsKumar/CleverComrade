@@ -37,7 +37,7 @@ app.post('/notification', (req, res) => {
     res.status(200).send(req.query.validationToken)
 });
 
-app.post("/upload", (req, res) => {
+app.post("/upload", async (req, res) => {
     let thisFile = req.files.file
     const fileName = req.files.file.name
     thisFile.mv(
@@ -52,7 +52,8 @@ app.post("/upload", (req, res) => {
         },
       )
 
-    const token = "eyJraWQiOiJNbFVBTWtyQkc4ekJrZE9yV00xOWs2MnI2RklNVTI0ZXlzb2tWSmpnNmdvPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5YTRmY2U0MS05YWZkLTRhNjAtYmU5Ny02Y2Q2NWI4ZmE1YjAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tXC91cy13ZXN0LTJfYlNLSlF5QVFIIiwiY29nbml0bzp1c2VybmFtZSI6ImtyaW5za3VtYXJAZ21haWwuY29tIiwib3JpZ2luX2p0aSI6IjE2OTNkZThmLTNlZmMtNDY3My04MmI5LTM1NWM4ODNmZThjNiIsImF1ZCI6IjcydGxmOWEwNWV1aDFyZXRmcGhsaGxhZ3BwIiwiZXZlbnRfaWQiOiI5MDE1MjVlMi0zNTcwLTQxYjMtODMzYi03NTFhOTE1ZDNlZTMiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY5OTExNTAwMiwiZXhwIjoxNjk5MTY3MjA3LCJpYXQiOjE2OTkxNjM2MDcsImp0aSI6IjBhMzYwZTE2LWVjOTMtNGQ4MS1iZDYxLTcwYTE4MTczM2I3MyIsImVtYWlsIjoia3JpbnNrdW1hckBnbWFpbC5jb20ifQ.k3ffoIUD1UvFsxDl_GtZMcOxPpO85-v4wkU3YqpGF3eECHd4hu1mful4pE1s-bCwPistPlQi13IYGNSxQKdh_iU7Ld32d5zORqzC9sb1saaU8GFfGSp0QoL9yJi9Olm7gZ10TbogJfB86jt_jk2CIXy5OiXdBaGWwWIjwuR5PH2Iu87TsZKpV-Vwv8lP10IE8C2cMAMb90Z5_ZRiXfRGweTHWfNT8-o1OQu4JXn0B5boXMT5FubVdVihVmwagVsUmfQd4Bjr746Sd28Hpd2KunimixJWSTk2HyUiZXAhIEpVWNrJg1FvWlh5y-aZqnE8bbPIDrgPfYuf9JLx-BMb3g";
+        const token = getJwtToken();
+        // const token = "eyJraWQiOiJNbFVBTWtyQkc4ekJrZE9yV00xOWs2MnI2RklNVTI0ZXlzb2tWSmpnNmdvPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5YTRmY2U0MS05YWZkLTRhNjAtYmU5Ny02Y2Q2NWI4ZmE1YjAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tXC91cy13ZXN0LTJfYlNLSlF5QVFIIiwiY29nbml0bzp1c2VybmFtZSI6ImtyaW5za3VtYXJAZ21haWwuY29tIiwib3JpZ2luX2p0aSI6IjE2OTNkZThmLTNlZmMtNDY3My04MmI5LTM1NWM4ODNmZThjNiIsImF1ZCI6IjcydGxmOWEwNWV1aDFyZXRmcGhsaGxhZ3BwIiwiZXZlbnRfaWQiOiI5MDE1MjVlMi0zNTcwLTQxYjMtODMzYi03NTFhOTE1ZDNlZTMiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY5OTExNTAwMiwiZXhwIjoxNjk5MTc1MTA2LCJpYXQiOjE2OTkxNzE1MDYsImp0aSI6IjgwOTE1YTk0LTgxYTQtNDg5My1iYzc0LWUzZTFlY2FlYmQ3NyIsImVtYWlsIjoia3JpbnNrdW1hckBnbWFpbC5jb20ifQ.rtkPVbHyTxDHfXe1REG56Vh8FwG8yIlqVLIEWXrMK6Dim618V-U9dSw3FYV_yYI_4HNA1bkIO2AcVeytEtE3R_U6YRDDIe26xMp9tDhlRZdXGeqZ5sTO958zB2_0_YAbMQfS-W9DWJwosGCLEnwZ-9wQBbhEL61ExWqw2qK9NVsbMYzKLH68Z_7ygZFM208TUlxsyZYQcnUUzwmZzetGITCn3fUUVRaQ9cGxpKU3YtdleyFczWwEdRCPOqhArtWvz1y6L6S5Fa_ld8Qw2hCjRGoitTS2WgwMO6CBQPbLWoERJupP729yqZfAC4CBhcdFcuenWjzVeaktbo07BlJ8BA"
 
     //upload vectara
     uploadFile(1, token, fileName)
@@ -65,21 +66,31 @@ app.post("/upload", (req, res) => {
     );
 });
 
-app.post("/query", (req, res) => {
+app.post("/query", async(req, res) => {
     console.log(req.body.params);
-    // const token = getJwtToken();
-    const token = "eyJraWQiOiJNbFVBTWtyQkc4ekJrZE9yV00xOWs2MnI2RklNVTI0ZXlzb2tWSmpnNmdvPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5YTRmY2U0MS05YWZkLTRhNjAtYmU5Ny02Y2Q2NWI4ZmE1YjAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tXC91cy13ZXN0LTJfYlNLSlF5QVFIIiwiY29nbml0bzp1c2VybmFtZSI6ImtyaW5za3VtYXJAZ21haWwuY29tIiwib3JpZ2luX2p0aSI6IjE2OTNkZThmLTNlZmMtNDY3My04MmI5LTM1NWM4ODNmZThjNiIsImF1ZCI6IjcydGxmOWEwNWV1aDFyZXRmcGhsaGxhZ3BwIiwiZXZlbnRfaWQiOiI5MDE1MjVlMi0zNTcwLTQxYjMtODMzYi03NTFhOTE1ZDNlZTMiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY5OTExNTAwMiwiZXhwIjoxNjk5MTcxMDc0LCJpYXQiOjE2OTkxNjc0NzQsImp0aSI6IjY2M2Q0MWJmLTk2MTMtNDJmOS1iNjNjLTkwOWJkNDZiMDA4ZCIsImVtYWlsIjoia3JpbnNrdW1hckBnbWFpbC5jb20ifQ.K6e4nldo-VWgHKlenBg8gqUig6ysxO1dIFDD8GdLXQjnfpXFEhBQdnSQVJV83VsI8INNNIP-0UvsYa9Js9pEgVJCnDSQ0uSozHGytcQRTKcsMBJu1J7PpvBfgIogckZKW4xd0nDOSQ7NVx5d8W80IJKhOF5S4X2nXkpUH0-mw1G9kpaqyKpB1UCEVCvhMyCCjaEiEpYlKnXyiDpB7D-edosKn1kAmvz-S1eTGErd4Qvr9WaQIxeuyMPAGFmroEDzd8GmqZpt6c7T5PTCY1-sZKE_yWMf03u7Rv9YhCPpYlyR3HmZ86Nyxi5eIbqhASmLBGA_h50SRro6n59dvDlCpw";
-    const response = getQueryResponse(req.body.params, 1, token)
-    .then((res)=> {
-        const response=res.data.responseSet[0].response;
-        res.status(200).json(
-            createSuccessResponse({
-                data: response
-            })
-        );
-    }
+    const token ="eyJraWQiOiJNbFVBTWtyQkc4ekJrZE9yV00xOWs2MnI2RklNVTI0ZXlzb2tWSmpnNmdvPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5YTRmY2U0MS05YWZkLTRhNjAtYmU5Ny02Y2Q2NWI4ZmE1YjAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tXC91cy13ZXN0LTJfYlNLSlF5QVFIIiwiY29nbml0bzp1c2VybmFtZSI6ImtyaW5za3VtYXJAZ21haWwuY29tIiwib3JpZ2luX2p0aSI6IjE2OTNkZThmLTNlZmMtNDY3My04MmI5LTM1NWM4ODNmZThjNiIsImF1ZCI6IjcydGxmOWEwNWV1aDFyZXRmcGhsaGxhZ3BwIiwiZXZlbnRfaWQiOiI5MDE1MjVlMi0zNTcwLTQxYjMtODMzYi03NTFhOTE1ZDNlZTMiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY5OTExNTAwMiwiZXhwIjoxNjk5MTk2MTAxLCJpYXQiOjE2OTkxOTI1MDEsImp0aSI6ImJjZTRiZTIyLTAzZWMtNDFkZS1hNzkwLTExZGIyYzNmN2ZjOCIsImVtYWlsIjoia3JpbnNrdW1hckBnbWFpbC5jb20ifQ.S_3syBmeq1ZifafJSpYyXXn_mL8Sr44yRv0CGp5VajwJVeg14JDmL9i_aOcyvXGzYP3VlTTR945W8HJXbFDQC9Mfh21s2WtFYIA5USD4sf7UlbxAyg76GLS3hD3zXuzr5P0OAP4VYEBxOHrSugppRiY201gDtM4PYbL60Gjw4McSBvoc8-8ja9VMHs0eKawTrY3yOv7FjBmDvC4zKnvRp7xivpkslbw99eT50XgLtMEkxs-C1SK8hfd1od7pfT2y65sEmUzjLFXJgiQrBGiImS4gU0ThTKL9mkQdqc52epR9XCVDoKxs2QYnu9OmC9GxSD21mq5Xc_LZPAvoleuorg"
+    console.log(token);
+    // const token = "eyJraWQiOiJNbFVBTWtyQkc4ekJrZE9yV00xOWs2MnI2RklNVTI0ZXlzb2tWSmpnNmdvPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5YTRmY2U0MS05YWZkLTRhNjAtYmU5Ny02Y2Q2NWI4ZmE1YjAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tXC91cy13ZXN0LTJfYlNLSlF5QVFIIiwiY29nbml0bzp1c2VybmFtZSI6ImtyaW5za3VtYXJAZ21haWwuY29tIiwib3JpZ2luX2p0aSI6IjE2OTNkZThmLTNlZmMtNDY3My04MmI5LTM1NWM4ODNmZThjNiIsImF1ZCI6IjcydGxmOWEwNWV1aDFyZXRmcGhsaGxhZ3BwIiwiZXZlbnRfaWQiOiI5MDE1MjVlMi0zNTcwLTQxYjMtODMzYi03NTFhOTE1ZDNlZTMiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY5OTExNTAwMiwiZXhwIjoxNjk5MTcxMDc0LCJpYXQiOjE2OTkxNjc0NzQsImp0aSI6IjY2M2Q0MWJmLTk2MTMtNDJmOS1iNjNjLTkwOWJkNDZiMDA4ZCIsImVtYWlsIjoia3JpbnNrdW1hckBnbWFpbC5jb20ifQ.K6e4nldo-VWgHKlenBg8gqUig6ysxO1dIFDD8GdLXQjnfpXFEhBQdnSQVJV83VsI8INNNIP-0UvsYa9Js9pEgVJCnDSQ0uSozHGytcQRTKcsMBJu1J7PpvBfgIogckZKW4xd0nDOSQ7NVx5d8W80IJKhOF5S4X2nXkpUH0-mw1G9kpaqyKpB1UCEVCvhMyCCjaEiEpYlKnXyiDpB7D-edosKn1kAmvz-S1eTGErd4Qvr9WaQIxeuyMPAGFmroEDzd8GmqZpt6c7T5PTCY1-sZKE_yWMf03u7Rv9YhCPpYlyR3HmZ86Nyxi5eIbqhASmLBGA_h50SRro6n59dvDlCpw";
+    // const response = getQueryResponse(req.body.params, 1, token)
+    // .then((res)=> {
+        // const response=res.data.responseSet[0].response;
+    // }).catch(err=>console.log(err));
+    const response = await getQueryResponse(req.body.params, 1, token)
+    console.log(response.data.responseSet[0].response[0]);
+    // const filtered_texts=response.data.responseSet[0].response.filter(res=>res.score>=0.70)
+    // console.log(filtered_texts);
+    const texts=response.data.responseSet[0].response.map((res)=>{
+        return {
+        text: res.text,
+        doc: res.documentIndex,
+        score:res.score
+    }})
+    
+    res.status(200).json(
+        createSuccessResponse({
+            data: texts,
+        })
     );
-
 });
 
 app.use((req, res) => {

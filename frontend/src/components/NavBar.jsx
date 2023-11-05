@@ -25,7 +25,8 @@ function classNames(...classes) {
 }
 
 export default function NavBar({toggleTabHandler}) {
-  const { loginWithRedirect } = useAuth0();
+  const {isAuthenticated, loginWithRedirect, logout} = useAuth0();
+  console.log(isAuthenticated);
   const navigation = [
     { 
     name: 'Upload', 
@@ -34,10 +35,10 @@ export default function NavBar({toggleTabHandler}) {
     callback:toggleTabHandler
     },
     { 
-    name: 'Sign In', 
+    name: isAuthenticated ? 'Sign Out' : 'Sign In', 
     href: '#', 
     current: false, 
-    callback:()=>{loginWithRedirect()}
+    callback:()=>{isAuthenticated ? logout() : loginWithRedirect()}
     },
   ]
 
@@ -60,9 +61,9 @@ export default function NavBar({toggleTabHandler}) {
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <img
-                        className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="Your Company"
+                        className="h-20 w-18"
+                        src="./CCIcon.png"
+                        alt="CCIcon"
                       />
                     </div>
                     <div className="hidden md:block">

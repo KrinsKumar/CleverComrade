@@ -13,21 +13,26 @@ const OAUTH_JWT = process.env.OAUTH_JWT;
 
 //TODO get the file from the front end
 let uploadFile = async function (user_id, auth_token, file_name) {
-    const data = new FormData();
-    data.append('c', id);
-    data.append('o', user_id);
-    // console.log(__dirname + '/files/' + file_name);
-    data.append('file', fs.createReadStream(__dirname + '/files/' + file_name));
+  console.log("start")
+  const data = new FormData();
+  data.append('c', id);
+  data.append('o', user_id);
+  // console.log(__dirname + '/files/' + file_name);
+  data.append('file', fs.createReadStream(__dirname + '/files/' + file_name));
+  
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${auth_token}`,
+      'Content-Type': 'multipart/form-data'
+    }
+  };
+  const result = await axios.post(`https://${endpoint}/v1/upload`, data, config);
 
-    const config = {
-        headers: {
-            'Authorization': `Bearer ${auth_token}`,
-            'Content-Type': 'multipart/form-data'
-        }
-    };
-    const result = await axios.post(`https://${endpoint}/v1/upload`, data, config);
-    console.log({result:result.data.response});
-    return result;
+
+
+  console.log({result:result.data.response});
+  console.log("start")
+  return result;
 }
 
 
@@ -103,36 +108,22 @@ let getQueryResponse = async function (query, user_id, auth_token) {
 
 }
 
-function getJwtToken() {
-    const encoded = Buffer.from(`${client_id}:${client_secret}`).toString(
-      "base64"
-    );
+async function getJwtToken() {
+  console.log(client_secret, client_id, auth_endpoint)
+  // const {
+    // data: { access_token: jwt }
+  // } = await axios({
+  //   method: "POST",
+  //   headers: { "content-type": "application/x-www-form-urlencoded" },
+  //   data: JSON.stringify({
+  //     grant_type: "client_credentials",
+  //     client_id: client_id,
+  //     client_secret: client_secret
+  //   }),
+  //   url: auth_endpoint
+  // });
 
-    const config = {
-      headers: {
-        Authorization: `Basic ${encoded}`,
-      },
-    };
-  
-    return new Promise((resolve, reject) => {
-      axios
-        .post(
-          auth_endpoint,
-          new URLSearchParams({
-            grant_type: "client_credentials",
-            client_id: client_id,
-          }),
-          config
-        )
-        .then((result) => {
-          // console.log(result.data.access_token)
-          resolve(result.data.access_token);
-        })
-        .catch((err) => {
-          console.log(err);
-          reject(err);
-        });
-    });
+  // return data;
 }
 
 function createSuccessResponse (data) {

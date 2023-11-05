@@ -8,14 +8,25 @@ const instruction = "To receive a personalized answer from us, please start by u
 
 function App() {
     const [isDownloadOpen, setIsDownloadOpen] = useState(false);
+    const [answer, setAnswer] = useState([]);
     return (
       <>
         <NavBar toggleTabHandler={()=>{setIsDownloadOpen(!isDownloadOpen)}}/>
-        <DownloadDialog isDownloadOpen={isDownloadOpen} closeTabHandler={()=>{setIsDownloadOpen(false)}}/>
+        <DownloadDialog 
+        isDownloadOpen={isDownloadOpen} 
+        closeTabHandler={()=>{setIsDownloadOpen(false)}}
+        />
       <div className="px-10 mt-3 text-sm">
-        <SearchBar/>
-        <QuestionBox instruction={instruction} type={true}/>
-        <QuestionBox instruction={instruction} type={false}/>
+        <SearchBar
+        setAnswer={setAnswer}
+        answer={answer}
+        />
+        <QuestionBox 
+        instruction={instruction} 
+        type={true}
+        answer={answer}
+        />
+        {/* <QuestionBox instruction={instruction} type={false}/> */}
       </div>
       </>
     )

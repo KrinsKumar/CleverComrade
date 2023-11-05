@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import SendSVG from '../svg/send-icon.svg'
-const SearchBar=()=>{
+const SearchBar=({answer, setAnswer})=>{
+
     const onSubmitHandler=(prompt)=>{
+        if(prompt===""){
+            window.alert("Empty Input!");
+            return
+        }
         axios.post(`http://localhost:8080/query/`,{
             params:prompt
         })
-        .then((res)=>console.log(res))
+        .then((res)=>{
+            console.log(res.data.data);
+            setAnswer([...answer,res.data.data])
+        })
         .catch((err)=> console.log(err))
       }
 
