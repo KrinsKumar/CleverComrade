@@ -3,7 +3,7 @@ import axios from 'axios'
 import SendSVG from '../svg/send-icon.svg'
 const SearchBar=()=>{
     const onSubmitHandler=(prompt)=>{
-        axios.post(`https://witty-smock-ant.cyclic.app/query/`,{
+        axios.post(`http://localhost:8080/query/`,{
             params:prompt
         })
         .then((res)=>console.log(res))

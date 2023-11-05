@@ -16,8 +16,7 @@ let uploadFile = async function (user_id, auth_token, file_name) {
     const data = new FormData();
     data.append('c', id);
     data.append('o', user_id);
-    // console.log(__dirname + '/files/' + file_name);
-    data.append('file', fs.createReadStream(__dirname + '/files/' + file_name));
+    data.append('file', __dirname + 'files/' + file_name);
 
     const config = {
         headers: {
@@ -26,7 +25,6 @@ let uploadFile = async function (user_id, auth_token, file_name) {
         }
     };
     const result = await axios.post(`https://${endpoint}/v1/upload`, data, config);
-    console.log({result:result.data.response});
     return result;
 }
 
@@ -73,7 +71,6 @@ let deleteDocument = async function (user_id, auth_token, document_id) {
 }
 
 let getQueryResponse = async function (query, user_id, auth_token) {
-  console.log("started")
     const data =  {
         'query': [
             {
@@ -98,9 +95,7 @@ let getQueryResponse = async function (query, user_id, auth_token) {
     };
 
     const result = await axios.post(`https://${endpoint}/v1/query`, data, config);
-    console.log("ended")
     return result;
-
 }
 
 function getJwtToken() {
@@ -125,7 +120,6 @@ function getJwtToken() {
           config
         )
         .then((result) => {
-          // console.log(result.data.access_token)
           resolve(result.data.access_token);
         })
         .catch((err) => {
@@ -216,4 +210,3 @@ module.exports = {
     createSuccessResponse,
     getUserId
 };
-
