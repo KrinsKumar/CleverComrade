@@ -25,8 +25,3 @@ Once connected, CleverComrade utilizes the documentes within your OneDrive as it
 Not convinced? Clever will even tell you which of _**your**_ documents it got the information from for it's answer!
 
 
-
-
-### ⏰ 🥱 Pals Who Lost Sleep 😴 🤓
---insert users who worked on project img--
-
