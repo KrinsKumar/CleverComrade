@@ -10,6 +10,7 @@ https://github.com/KrinsKumar/CleverComrade/assets/71527196/2d126da8-815c-48cb-8
 ![js](https://github.com/KrinsKumar/CleverComrade/assets/71527196/4276d341-5f5d-4ab1-b23b-de1fe9590900)
 ![html5-icon-1](https://github.com/KrinsKumar/CleverComrade/assets/71527196/f528edc9-2523-4e8e-bed5-17e4898d97a9)
 ![tailwindcss_logo_icon_167923](https://github.com/KrinsKumar/CleverComrade/assets/71527196/3bc6a411-3397-4d6c-8856-8fc0739ababe)
+![Auth0](https://github.com/KrinsKumar/CleverComrade/assets/71527196/d078c0cf-d121-4489-b421-d5df7c66a90c)
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=KrinsKumar&exclude_repo=Automated-POS,Kafka-SpringBoot,krins-portfolio,ChatBackend-Redis,Angular-Netflix,spring-security-JWT,stream-music,spring-firstProject,NoBrainer-AI_SaaS,React-LandingPage,Responsive-dashboard,Photography-Portfolio,rock.paper.scissors-Inventory,web322-blog-app,movies-API,OOP244-Closed,Aztech,OOP345-closed,sketch.io)](https://github.com/anuraghazra/github-readme-stats)
 
