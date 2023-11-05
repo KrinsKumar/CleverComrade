@@ -1,26 +1,45 @@
 import React, { useRef, useState } from "react";
-
+import axios from 'axios';
 function DownloadDialog({isDownloadOpen, closeTabHandler}) {
   const dropZoneRef = useRef(null);
   const fileInputRef = useRef(null);
   const [droppedFiles, setDroppedFiles] = useState([]);
-
+  console.log(droppedFiles);
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
+  const onSubmitHander = ()=>{
+    const data = new FormData()
+    data.append('file', droppedFiles[0])
+    data.append('filename', droppedFiles[0].name)
+
+    axios.post("https://witty-smock-ant.cyclic.app/upload", {formData: data} 
+        // onUploadProgress: ProgressEvent => {
+        //   this.setState({
+        //     loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
+        //   })
+        // },
+      )
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err=>console.log(err))
+  }
+
   const handleDrop = (e) => {
     e.preventDefault();
 
-    const files = Array.from(e.dataTransfer.files);
+    // const files = Array.from(e.dataTransfer.files);
+    // // console.log(files)
+    // console.log(e.dataTransfer)
+    // if (files.length > 0) {
+    //   // Handle the dropped files here, e.g., upload or process them.
+    //   console.log("Dropped files:", files);
 
-    if (files.length > 0) {
-      // Handle the dropped files here, e.g., upload or process them.
-      console.log("Dropped files:", files);
-
-      // Update the state with the dropped files' names
-      setDroppedFiles([...droppedFiles, ...files.map((file) => file.name)]);
-    }
+    //   // Update the state with the dropped files' names
+    //   setDroppedFiles([...droppedFiles, ...files.map((file) => file.name)]);
+    // }
   };
 
   const handleBrowseClick = () => {
@@ -33,7 +52,7 @@ function DownloadDialog({isDownloadOpen, closeTabHandler}) {
 
     if (selectedFiles.length > 0) {
       // Update the state with the selected file names
-      setDroppedFiles([...droppedFiles, ...selectedFiles.map((file) => file.name)]);
+      setDroppedFiles([...droppedFiles, ...selectedFiles]);
     }
   };
 
@@ -59,7 +78,7 @@ function DownloadDialog({isDownloadOpen, closeTabHandler}) {
                       className={"leading-loose px-2 " + (index % 2 === 0 ? "bg-gray-100" : "bg-gray-200")}
                       key={index}
                     >
-                      {filename}
+                      {filename.name}
                     </li>
                   ))}
                 </ul>
@@ -85,7 +104,7 @@ function DownloadDialog({isDownloadOpen, closeTabHandler}) {
             onChange={handleFileInputChange}
           />
           <div className="mx-auto w-full flex justify-between px-20">
-        <button onClick={()=>{window.location.reload()}}className="hover:bg-blue-400 bg-blue-200 p-2 transform rounded px-4">Submit</button>
+        <button onClick={()=>{onSubmitHander()}}className="hover:bg-blue-400 bg-blue-200 p-2 transform rounded px-4">Submit</button>
         <button className="hover:bg-blue-400 bg-blue-200 p-2 transform rounded px-4" onClick={closeTabHandler}>Close</button>
           </div>
         </div>
